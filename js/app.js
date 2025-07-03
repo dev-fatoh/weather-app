@@ -71,13 +71,16 @@ document.addEventListener("DOMContentLoaded", () => {
       let { longitude } = position.coords;
       let { latitude } = position.coords;
       getData(`${latitude},${longitude}`);
-    });
 
-    weatherInfo.style.display = "grid";
+      weatherInfo.style.opacity = "1";
+    });
   } else {
-    weatherInfo.style.display = "none";
+    weatherInfo.style.opacity = "0";
   }
 });
 searchBtn.addEventListener("click", function () {
   getData(search.value);
+
+  weatherInfo.style.opacity = "1";
+  search.value = "";
 });

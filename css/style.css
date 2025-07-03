@@ -114,10 +114,12 @@ header .menu__icon i {
 .weather__info {
   max-width: 80%;
   margin: 1rem auto;
-  display: none;
+  display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
   gap: 1rem;
+  opacity: 0;
+  transition: opacity 1s ease;
 }
 
 .weather__info__current,
