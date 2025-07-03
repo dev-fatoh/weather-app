@@ -18,7 +18,7 @@ var currentMonthString = today.toLocaleString("default", {
 });
 function getData(location) {
   fetch(
-    `http://api.weatherapi.com/v1/forecast.json?key=1f60ebe4794e4adcb75210034221103&q=${location}&days=3&aqi=no&alerts=no`,
+    `https://api.weatherapi.com/v1/forecast.json?key=1f60ebe4794e4adcb75210034221103&q=${location}&days=3&aqi=no&alerts=no`,
   )
     .then((res) => res.json())
     .then((data) => {
