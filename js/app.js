@@ -11,7 +11,7 @@ var today = new Date();
 var currentDayString = today
   .toLocaleString("default", {
     dateStyle: "full",
-  })
+  }).slice(0,-12)
   
 var currentMonthString = today.toLocaleString("default", {
   month: "long",
@@ -44,7 +44,7 @@ function getData(location) {
 <h2>${new Date(item.date)
             .toLocaleString("default", {
               dateStyle: "full",
-            })
+            }).slice(0,-12)
         }</h2>
 <p>${new Date(item.date).getDate()}<small>${new Date(item.date).toLocaleString(
             "default",
