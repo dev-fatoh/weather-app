@@ -11,19 +11,19 @@ var today = new Date();
 var currentDayString = today
   .toLocaleString("default", {
     dateStyle: "full",
-  }).slice(0,-12)
-  
-var currentMonthString = today.toLocaleString("default", {
-  month: "long",
-});
+  })
+  .replaceAll(",", "")
+  .split(" ");
+console.log(currentDayString);
+
 function getData(location) {
   fetch(
     `https://api.weatherapi.com/v1/forecast.json?key=1f60ebe4794e4adcb75210034221103&q=${location}&days=3&aqi=no&alerts=no`,
   )
     .then((res) => res.json())
     .then((data) => {
-      weatherInfoDate.innerHTML = `<h2>${currentDayString}</h2>
-<p>${today.getDate()}<small>${currentMonthString}</small><small>${today.getFullYear()}</small>
+      weatherInfoDate.innerHTML = `<h2>${currentDayString[0]}</h2>
+<p>${currentDayString[2]}<small>${currentDayString[1]}</small><small>${currentDayString[3]}</small>
 </p>
 `;
 
@@ -37,29 +37,25 @@ function getData(location) {
       console.log(dayString);
       var nextTwoDays = data.forecast.forecastday
         .splice(1)
-        .map(
-          (item) => `
+        .map((item) => {
+          let day = new Date(item.date)
+            .toLocaleString("default", { dateStyle: "full" })
+            .replaceAll(",", "")
+            .split(" ");
+
+          return `
 <div class="day">
   <div class="date">
-<h2>${new Date(item.date)
-            .toLocaleString("default", {
-              dateStyle: "full",
-            }).slice(0,-12)
-        }</h2>
-<p>${new Date(item.date).getDate()}<small>${new Date(item.date).toLocaleString(
-            "default",
-            {
-              month: "long",
-            },
-          )}</small><small>${new Date(item.date).getFullYear()}</small>
+<h2>${day[0]}</h2>
+<p>${day[2]}<small>${day[1]}</small><small>${day[3]}</small>
 </p>
 </div>
  <h1 class="tempNext-max">${item.day.maxtemp_c}<img class="icon" src="${item.day.condition.icon}"/></h1>
 <h2 class="tempNext-min">${item.day.mintemp_c}</h2>
 <p class="state">${item.day.condition.text}</p>
 </div>
-`,
-        )
+`;
+        })
         .join(" ");
       document.querySelector(".next__day").innerHTML = nextTwoDays;
     })
